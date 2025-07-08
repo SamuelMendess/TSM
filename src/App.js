@@ -3,20 +3,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
-// Configuração do Tailwind CSS (assumindo que está configurado no ambiente)
-// Para usar as cores personalizadas no Tailwind, você precisaria estender o tailwind.config.js
-// Exemplo:
-// module.exports = {
-//   theme: {
-//     extend: {
-//       colors: {
-//         'tsm-purple': '#8A2BE2', // Roxo
-//         'tsm-violet': '#EE82EE', // Violeta
-//       }
-//     }
-//   }
-// }
-// Para este exemplo, usaremos classes de cores Tailwind existentes que se aproximam.
+// eslint-disable-next-line no-unused-vars
+const __app_id = window.__app_id || undefined;
+// eslint-disable-next-line no-unused-vars
+const __firebase_config = window.__firebase_config || undefined;
+// eslint-disable-next-line no-unused-vars
+const __initial_auth_token = window.__initial_auth_token || undefined;
+
+/* global __app_id, __firebase_config, __initial_auth_token */
 
 // Componente de Cabeçalho (Header)
 const Header = ({ currentPage, onNavigate }) => {
@@ -168,7 +162,7 @@ const ChatbotPage = () => {
         const aiResponseText = result.candidates[0].content.parts[0].text;
         setChatHistory(prev => [...prev, { role: "model", parts: [{ text: aiResponseText }] }]);
       } else {
-        setError('A IA não conseguiu responder. Tente reformular sua pergunta.');
+        setError('Não foi possível gerar o conteúdo. Tente reformular sua pergunta.');
         console.error("Estrutura de resposta inesperada da IA:", result);
       }
     } catch (err) {
@@ -368,36 +362,38 @@ const HomePage = ({ onNavigate }) => (
 );
 
 // Página Quem Somos
-const QuemSomosPage = () => (
-  <div className="min-h-screen bg-gray-900 text-gray-100 py-20">
-    <div className="container mx-auto px-4">
-      <SectionTitle>Quem Somos</SectionTitle>
-      <div className="max-w-4xl mx-auto text-center">
-        <p className="text-lg font-inter mb-8 leading-relaxed">
-          A TSM Soluções nasceu da paixão por resultados e da crença de que o marketing digital, quando feito com estratégia e dados, é a chave para o crescimento sustentável de qualquer negócio online. Somos uma agência especializada em performance, focada em tráfego pago, gestão de marketplaces e consultoria de e-commerce.
-        </p>
-        <p className="text-lg font-inter mb-8 leading-relaxed">
-          Nossa missão é transformar o potencial dos nossos clientes em vendas reais, otimizando cada etapa do funil e garantindo o melhor retorno sobre o investimento em anúncios (ROAS). Trabalhamos com transparência, dedicação e uma equipe de especialistas que está sempre atualizada com as últimas tendências do mercado.
-        </p>
-        <h3 className="text-3xl font-bold font-poppins text-tsm-violet mb-6 mt-12">Nossa Filosofia</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
-            <h4 className="text-xl font-bold font-poppins mb-3">Foco em Dados</h4>
-            <p className="text-gray-300 font-inter">Todas as nossas decisões são baseadas em análises profundas e métricas claras.</p>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
-            <h4 className="text-xl font-bold font-poppins mb-3">Transparência Total</h4>
-            <p className="text-gray-300 font-inter">Relatórios detalhados e comunicação aberta com nossos clientes.</p>
-          </div>
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
-            <h4 className="text-xl font-bold font-poppins mb-3">Resultados Reais</h4>
-            <p className="text-gray-300 font-inter">Nosso sucesso é medido pelo crescimento do seu faturamento.</p>
+const QuemSomosPage = () => { 
+  return (
+    <div className="min-h-screen bg-gray-900 text-gray-100 py-20">
+      <div className="container mx-auto px-4">
+        <SectionTitle>Quem Somos</SectionTitle>
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-lg font-inter mb-8 leading-relaxed">
+            A TSM Soluções nasceu da paixão por resultados e da crença de que o marketing digital, quando feito com estratégia e dados, é a chave para o crescimento sustentável de qualquer negócio online. Somos uma agência especializada em performance, focada em tráfego pago, gestão de marketplaces e consultoria de e-commerce.
+          </p>
+          <p className="text-lg font-inter mb-8 leading-relaxed">
+            Nossa missão é transformar o potencial dos nossos clientes em vendas reais, otimizando cada etapa do funil e garantindo o melhor retorno sobre o investimento em anúncios (ROAS). Trabalhamos com transparência, dedicação e uma equipe de especialistas que está sempre atualizada com as últimas tendências do mercado.
+          </p>
+          <h3 className="text-3xl font-bold font-poppins text-tsm-violet mb-6 mt-12">Nossa Filosofia</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+              <h4 className="text-xl font-bold font-poppins mb-3">Foco em Dados</h4>
+              <p className="text-gray-300 font-inter">Todas as nossas decisões são baseadas em análises profundas e métricas claras.</p>
+            </div>
+            <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+              <h4 className="text-xl font-bold font-poppins mb-3">Transparência Total</h4>
+              <p className="text-gray-300 font-inter">Relatórios detalhados e comunicação aberta com nossos clientes.</p>
+            </div>
+            <div className="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700">
+              <h4 className="text-xl font-bold font-poppins mb-3">Resultados Reais</h4>
+              <p className="text-gray-300 font-inter">Nosso sucesso é medido pelo crescimento do seu faturamento.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Página Soluções
 const SolucoesPage = () => {
@@ -846,6 +842,7 @@ const ContatoPage = ({ db, userId }) => {
     setStatusMessage('Enviando mensagem...');
 
     try {
+      // Define appId com um valor padrão ou de ambiente
       const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
       const contactsCollectionRef = collection(db, `artifacts/${appId}/public/data/contacts`);
       await addDoc(contactsCollectionRef, {
@@ -933,7 +930,7 @@ const ContatoPage = ({ db, userId }) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-colors duration-300"
               >
-                <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.04 2C7.03 2 3 6.03 3 11.04c0 1.95.61 3.76 1.65 5.27L3.05 21l5.31-1.41c1.47.8 3.16 1.25 4.38 1.25 5.01 0 9.04-4.03 9.04-9.04S17.05 2 12.04 2zM17.29 15.4c-.1-.17-.36-.27-.75-.46-.39-.18-.94-.3-1.09-.33-.15-.03-.33-.03-.47.3-.14.33-.54.8-.66.94-.12.14-.24.15-.45.07-.2-.08-.85-.31-1.62-.94-.6-.49-1.01-1.08-1.13-1.28-.12-.2-.01-.31.09-.41.09-.09.2-.24.3-.36.1-.12.13-.2.2-.33.07-.14.03-.25-.01-.35-.04-.1-.4-.96-.55-1.3-.15-.33-.3-.28-.47-.28-.17 0-.36-.02-.55-.02-.19 0-.49.07-.75.33-.26.26-1 1-1 2.45s1.02 2.83 1.16 3.02c.14.19 2 3.07 4.93 4.38 2.93 1.3 2.93.88 3.45.85.52-.03 1.47-.6 1.67-1.17.2-.56.2-1.03.14-1.17z"/></svg>
+                <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C7.03 2 3 6.03 3 11.04c0 1.95.61 3.76 1.65 5.27L3.05 21l5.31-1.41c1.47.8 3.16 1.25 4.38 1.25 5.01 0 9.04-4.03 9.04-9.04S17.05 2 12.04 2zM17.29 15.4c-.1-.17-.36-.27-.75-.46-.39-.18-.94-.3-1.09-.33-.15-.03-.33-.03-.47.3-.14.33-.54.8-.66.94-.12.14-.24.15-.45.07-.2-.08-.85-.31-1.62-.94-.6-.49-1.01-1.08-1.13-1.28-.12-.2-.01-.31.09-.41.09-.09.2-.24.3-.36.1-.12.13-.2.2-.33.07-.14.03-.25-.01-.35-.04-.1-.4-.96-.55-1.3-.15-.33-.3-.28-.47-.28-.17 0-.36-.02-.55-.02-.19 0-.49.07-.75.33-.26.26-1 1-1 2.45s1.02 2.83 1.16 3.02c.14.19 2 3.07 4.93 4.38 2.93 1.3 2.93.88 3.45.85.52-.03 1.47-.6 1.67-1.17.2-.56.2-1.03.14-1.17z"/></svg>
                 WhatsApp
               </a>
               <p className="text-xl font-inter text-gray-200">
@@ -966,15 +963,23 @@ export default function App() {
   // Efeito para inicializar o Firebase e autenticar o usuário
   useEffect(() => {
     // Variáveis globais fornecidas pelo ambiente Canvas
+    // Usar valores padrão ou de ambiente para evitar erros de "not defined"
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+    const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+      apiKey: "YOUR_API_KEY", // Substitua pela sua API Key do Firebase
+      authDomain: "YOUR_AUTH_DOMAIN", // Substitua pelo seu Auth Domain
+      projectId: "YOUR_PROJECT_ID", // Substitua pelo seu Project ID
+      storageBucket: "YOUR_STORAGE_BUCKET", // Substitua pelo seu Storage Bucket
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Substitua pelo seu Messaging Sender ID
+      appId: "YOUR_APP_ID" // Substitua pelo seu App ID
+    };
     const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
     // Verifica se a configuração do Firebase está presente
-    if (Object.keys(firebaseConfig).length === 0) {
-      console.error("Erro: A configuração do Firebase está faltando. Não é possível inicializar.");
-      setIsAuthReady(true); // Marca como pronto mesmo com erro para não bloquear a UI
-      return;
+    if (Object.keys(firebaseConfig).length === 0 || firebaseConfig.apiKey === "YOUR_API_KEY") {
+      console.warn("Atenção: A configuração do Firebase está faltando ou é padrão. O formulário de contato pode não funcionar corretamente em produção.");
+      // Se não houver config real, ainda tenta inicializar para não quebrar o app
+      // mas o Firestore não funcionará sem as credenciais corretas.
     }
 
     // Inicializa o Firebase
@@ -990,29 +995,20 @@ export default function App() {
       if (user) {
         setUserId(user.uid);
       } else {
-        // Se não há usuário e nenhum token inicial foi fornecido, tenta autenticar anonimamente
-        if (!initialAuthToken) {
-          try {
-            const anonUserCredential = await signInAnonymously(firebaseAuth);
-            setUserId(anonUserCredential.user.uid);
-          } catch (error) {
-            console.error("Erro ao autenticar anonimamente:", error);
-          }
+        // Tenta autenticar anonimamente se não houver usuário logado
+        try {
+          const anonUserCredential = await signInAnonymously(firebaseAuth);
+          setUserId(anonUserCredential.user.uid);
+        } catch (error) {
+          console.error("Erro ao autenticar anonimamente:", error);
         }
       }
       setIsAuthReady(true); // Marca que a autenticação inicial foi processada
     });
 
-    // Tenta autenticar com o token personalizado se disponível
-    if (initialAuthToken && firebaseAuth && !firebaseAuth.currentUser) {
-      signInWithCustomToken(firebaseAuth, initialAuthToken)
-        .then((userCredential) => {
-          setUserId(userCredential.user.uid);
-        })
-        .catch((error) => {
-          console.error("Erro ao autenticar com token personalizado:", error);
-        });
-    }
+    // A parte de signInWithCustomToken é específica do ambiente Canvas e não será usada em produção
+    // Se você precisar de autenticação de usuário real, implemente os métodos Firebase apropriados aqui.
+    // Ex: signInWithEmailAndPassword, signInWithPopup (Google, etc.)
 
     // Função de limpeza para o listener de autenticação
     return () => unsubscribe();
