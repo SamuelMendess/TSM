@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apple / shadcn Neutral Minimalism */
+:root {
+  --bg-pure-black: #000000;
+  --bg-surface: #0d0d0f;
+  --bg-card: #141416;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(255, 255, 255, 0.3);
+  --text-muted: #86868b;
+  --text-bright: #f5f5f7;
+}
+
+/* Micro smooth transitions */
+* {
+  box-sizing: border-box;
+}
+
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Glass frosted layer Apple style */
+.apple-glass {
+  background: rgba(13, 13, 15, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.apple-pill-active {
+  background: #ffffff;
+  color: #000000;
+}
+
+.apple-pill-inactive {
+  background: rgba(255, 255, 255, 0.05);
+  color: #86868b;
+}
+.apple-pill-inactive:hover {
+  color: #f5f5f7;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Cor na interação, com borda em degradê e brilho contido. */
+.bento-card.accent-card {
+  isolation: isolate;
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.bento-card.accent-card::before {
+  inset: 0;
+  z-index: -1;
+  height: auto;
+  background: radial-gradient(ellipse at top left, var(--card-glow), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.accent-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 2px;
+  border-radius: inherit;
+  background: var(--card-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.accent-icon {
+  transition: color 220ms ease, border-color 220ms ease;
+}
+
+.bento-card.accent-card:focus-within {
+  border-color: transparent;
+  box-shadow: var(--card-halo);
+}
+
+.accent-card:focus-within::before,
+.accent-card:focus-within::after {
+  opacity: 1;
+}
+
+.accent-card:focus-within .accent-icon {
+  color: var(--card-accent);
+  border-color: var(--card-accent);
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .bento-card.accent-card:hover {
+    border-color: transparent;
+    box-shadow: var(--card-halo);
+  }
+
+  .accent-card:hover::before,
+  .accent-card:hover::after {
+    opacity: 1;
+  }
+
+  .accent-card:hover .accent-icon {
+    color: var(--card-accent);
+    border-color: var(--card-accent);
+  }
+}
+
+@media (max-width: 767px), (hover: none), (pointer: coarse) {
+  .bento-card.accent-card.is-touch-active {
+    border-color: transparent;
+    box-shadow: var(--card-halo);
+  }
+
+  .accent-card.is-touch-active::before,
+  .accent-card.is-touch-active::after {
+    opacity: 1;
+  }
+
+  .accent-card.is-touch-active .accent-icon {
+    color: var(--card-accent);
+    border-color: var(--card-accent);
+  }
+
+  .bento-card.accent-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bento-card.accent-card,
+  .accent-card::before,
+  .accent-card::after,
+  .accent-icon {
+    transition: none;
+  }
+
+  .bento-card.accent-card:hover {
+    transform: none;
+  }
+}
